@@ -21,7 +21,7 @@ public class auth {
 
     public static String password() {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("SoccerCardApp/auth.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("auth.txt"));
             reader.readLine(); // skip the username
             return reader.readLine();
         } catch (FileNotFoundException e) {
@@ -33,7 +33,7 @@ public class auth {
 
     public static String username() {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("SoccerCardApp/auth.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("auth.txt"));
             return reader.readLine();
         } catch (FileNotFoundException e) {
             return "file not found";
