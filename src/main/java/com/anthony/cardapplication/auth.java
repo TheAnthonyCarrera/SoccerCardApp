@@ -8,7 +8,7 @@ public class auth {
 
     public static String path() {
         try{
-            BufferedReader reader = new BufferedReader(new FileReader("SoccerCardApp/auth.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("auth.txt"));
             reader.readLine();
             reader.readLine();
             return reader.readLine();
