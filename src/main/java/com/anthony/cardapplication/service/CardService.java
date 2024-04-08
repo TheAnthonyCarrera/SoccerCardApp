@@ -7,6 +7,6 @@ import java.util.List;
 
 @Service
 public interface CardService {
-    Card saveCard(Card card);
+    public Card saveCard(Card card);
     public List<Card> getAllCard();
 }

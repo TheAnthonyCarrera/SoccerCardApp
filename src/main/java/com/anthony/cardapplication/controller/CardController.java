@@ -16,10 +16,10 @@ public class CardController {
     @PostMapping("/add")
     public String add(@RequestBody Card card){
         cardService.saveCard(card);
-        return "card has been added";
+        return "The card has been added";
     }
 
-    @GetMapping("getAll")
+    @GetMapping("/getAll")
     public List<Card> getAllCard(){
         return cardService.getAllCard();
     }
