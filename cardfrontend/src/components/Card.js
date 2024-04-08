@@ -2,6 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container, Paper,  Button } from '@mui/material';
+
 export default function Card() {
  
     const PaperStyle={padding:"50px 20px", width:600,margin:"20px auto"}
@@ -10,6 +11,7 @@ export default function Card() {
     const [last_name,setLastName]=React.useState("")
 
     const [club,setClub]=React.useState("")
+    const [searchValue, setSearchValue] = React.useState("");
 
     const [nationality,setNationality]=React.useState("")
     
@@ -21,10 +23,32 @@ export default function Card() {
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(card)
-    }).then(()=>{
-    console.log("New Card Added")
-    })
-}
+        }).then(()=>{
+        console.log("New Card Added")
+        })
+    }
+
+    function search(e) {
+        e.preventDefault();
+        let fnln = searchValue.split(" ");
+        fetch("http://localhost:8081/card/search?first_name=" + fnln[0] + "&last_name=" + fnln[1] ,{
+            method:"GET",
+            headers:{"Content-Type":"application/json"}
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            else {
+                console.log(response.status);
+                throw new Error('Something went wrong');
+            }
+        })
+        .then(data => {
+            console.log("---", data);
+        });
+        console.log("benchod ", fnln[0], fnln[1])
+    }
     
     return (
     
@@ -64,6 +88,16 @@ export default function Card() {
                 <Button variant="contained"onClick={handleClick}>
                     Submit
                 </Button>
+
+                <h2>Search</h2>
+                <TextField id="searchField" label="player name" type="search" value={searchValue} onChange={e => setSearchValue(e.target.value)} />
+                {/* <TextField
+                    id="outlined-helperText"
+                    label="Helper text"
+                    defaultValue="Default Value"
+                    helperText="Some important text"
+                /> */}
+                <Button variant="contained" onClick={(e) => search(e)}>Search</Button>
             </Box>
         </Paper>
     </Container>
