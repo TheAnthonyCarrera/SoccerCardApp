@@ -35,3 +35,4 @@ build/
 ### properties files ###
 src/main/resources/application.properties
 /src/main/resources
+auth.txt
