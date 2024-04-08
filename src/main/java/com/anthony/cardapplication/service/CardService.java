@@ -9,4 +9,5 @@ import java.util.List;
 public interface CardService {
     public Card saveCard(Card card);
     public List<Card> getAllCard();
+    public List<Card> searchCard(String firstname, String lastname);
 }

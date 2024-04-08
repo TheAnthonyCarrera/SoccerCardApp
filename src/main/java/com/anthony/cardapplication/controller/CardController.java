@@ -24,4 +24,16 @@ public class CardController {
     public List<Card> getAllCard(){
         return cardService.getAllCard();
     }
+
+    @GetMapping("/search")
+    public List<Card> add(@RequestParam(required = false) String fName, @RequestParam(required = false) String lName) {
+
+        if (fName == null && lName == null) {
+            return cardService.getAllCard();
+        }
+        else {
+            return cardService.searchCard(fName, lName);
+        }
+        //cardService.saveCard(card);
+    }
 }
