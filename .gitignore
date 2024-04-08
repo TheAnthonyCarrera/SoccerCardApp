@@ -36,3 +36,5 @@ build/
 src/main/resources/application.properties
 /src/main/resources
 auth.txt
+/node_modules
+/node_modules
