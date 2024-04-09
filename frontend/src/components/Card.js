@@ -14,25 +14,32 @@ export default function Card() {
     const [nationality,setNationality]=React.useState("")
     const [cards,setCards]=React.useState([])
     const [errorMessage, setErrorMessage] = useState(null);
+    const [manufacturer, setManufacturer] = useState("");
+    const [url, setUrl] = useState("");
     
     const handleClick=(e)=>{
         e.preventDefault()
-        const card={first_name,last_name,club,nationality}
+        const card={first_name,last_name,club,nationality, manufacturer, url}
         console.log(card)
         fetch("http://localhost:8081/card/add",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(card)
-        }).then(()=>{
-        console.log("New Card Added")
+        }).then(data=>{
+            if (data.ok) {
+                setErrorMessage(null);
+                setErrorMessage("Card added");
+            }
+            else {
+                console.log("failed to add card");
+                setErrorMessage("failed to add card");
+            }
         })
     }
 
     function search() {
 
-        const fnln = searchValue.split(" ");
-
-        fetch("http://localhost:8081/card/search?first_name=" + fnln[0] + "&last_name=" + fnln[1] ,{
+        fetch("http://localhost:8081/card/search?name=" + searchValue ,{
             method:"GET",
             headers:{"Content-Type":"application/json"}
         })
@@ -95,6 +102,16 @@ export default function Card() {
                     value={nationality}
                     onChange={(e)=>setNationality(e.target.value)}
                 />
+
+                <TextField id="manufacturer" label="Manufacturery" variant="outlined" fullWidth
+                    value={manufacturer}
+                    onChange={(e)=>setManufacturer(e.target.value)}
+                />
+
+                <TextField id="url" label="Image URL" variant="outlined" fullWidth
+                    value={url}
+                    onChange={(e)=>setUrl(e.target.value)}
+                />
                 
                 <Button variant="contained"onClick={handleClick}>
                     Submit
@@ -119,7 +136,7 @@ export default function Card() {
                     <FancyCard 
                     id={card.id} 
                     name={card.first_name + " " + card.last_name}
-                    description={card.description}
+                    manufacturer={card.manufacturer}
                     nationality={card.nationality}
                     imageURL={card.url}
                     club={card.club}

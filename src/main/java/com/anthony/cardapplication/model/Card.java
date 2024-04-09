@@ -33,7 +33,7 @@ public class Card implements Serializable {
     private String url;
 
     @Column(nullable = true)
-    private String description;
+    private String manufacturer;
 
     public Card() {}
 
@@ -45,9 +45,9 @@ public class Card implements Serializable {
         this.Id = id;
     }
 
-    public String getDescription() { return description; }
+    public String getManufacturer() { return manufacturer; }
 
-    public void setDescription(String description) { this.description = description; }
+    public void setManufacturer(String manufacturer) { this.manufacturer = manufacturer  ; }
 
     public void setUrl(String url) { this.url = url; }
 

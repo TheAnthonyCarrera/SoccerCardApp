@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface CardRepository extends JpaRepository<Card, Long> {
-    @Query("SELECT c FROM Card c WHERE LOWER(c.first_name) = LOWER(:first_name) AND LOWER(c.last_name) = LOWER(:last_name)")
-    List<Card> searchCard(@Param("first_name") String fName, @Param("last_name") String lName);
+    @Query("SELECT c FROM Card c WHERE REPLACE(LOWER(CONCAT(c.first_name, ' ', c.last_name)), ' ', '') = REPLACE(LOWER(:name), ' ', '')")
+    List<Card> searchCard(@Param("name") String name);
 }
 

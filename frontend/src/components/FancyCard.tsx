@@ -52,6 +52,7 @@ interface FancyCardProps {
             src={imageURL}
             height="1000"
             width="1000"
+            layout='responsive'
             className="h-60 w-full object-cover rounded-xl group-hover/card:shadow-xl"
             alt="thumbnail"
           />

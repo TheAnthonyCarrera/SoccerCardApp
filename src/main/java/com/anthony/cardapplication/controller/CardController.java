@@ -28,15 +28,15 @@ public class CardController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Card>> add(@RequestParam(required = false) String first_name, @RequestParam(required = false) String last_name) {
+    public ResponseEntity<List<Card>> add(@RequestParam(required = false) String name) {
 
-        if (first_name == null && last_name == null) {
-            System.out.println(first_name + " " + last_name);
+        if (name == null) {
+            System.out.println(name);
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
         }
         else {
-            System.out.println(first_name + " " + last_name);
-            return ResponseEntity.ok(cardService.searchCard(first_name, last_name));
+            System.out.println(name);
+            return ResponseEntity.ok(cardService.searchCard(name));
         }
     }
 }

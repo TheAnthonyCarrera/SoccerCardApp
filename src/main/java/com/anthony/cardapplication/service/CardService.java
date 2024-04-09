@@ -12,5 +12,5 @@ public interface CardService {
     public List<Card> getAllCard();
 
     @Transactional
-    public List<Card> searchCard(String firstname, String lastname);
+    public List<Card> searchCard(String name);
 }

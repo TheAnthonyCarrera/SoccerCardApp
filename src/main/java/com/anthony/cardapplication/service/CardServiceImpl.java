@@ -30,8 +30,8 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public List<Card> searchCard(String firstname, String lastname) {
-        return cardRepository.searchCard(firstname, lastname);
+    public List<Card> searchCard(String name) {
+        return cardRepository.searchCard(name);
     }
 
 }

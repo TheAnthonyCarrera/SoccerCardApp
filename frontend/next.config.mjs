@@ -4,7 +4,8 @@ const nextConfig = {
       domains: [
         'images.unsplash.com',
         'www.investopedia.com',
-        'upload.wikimedia.org'
+        'upload.wikimedia.org',
+        'www.euro-soccer-cards.com'
     ],
     },
   };
