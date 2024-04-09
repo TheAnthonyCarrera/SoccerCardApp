@@ -30,6 +30,9 @@ public class Card implements Serializable {
     @Column(nullable = false)
     private String url;
 
+    @Column(nullable = true)
+    private String description;
+
     public Card() {}
 
     public int getId() {
@@ -39,6 +42,10 @@ public class Card implements Serializable {
     public void setId(int id) {
         this.Id = id;
     }
+
+    public String getDescription() { return description; }
+
+    public void setDescription(String description) { this.description = description; }
 
     public void setUrl(String url) { this.url = url; }
 

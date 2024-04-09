@@ -3,7 +3,8 @@ const nextConfig = {
     images: {
       domains: [
         'images.unsplash.com',
-        'www.investopedia.com'
+        'www.investopedia.com',
+        'upload.wikimedia.org'
     ],
     },
   };
