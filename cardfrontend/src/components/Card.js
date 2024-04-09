@@ -12,6 +12,7 @@ export default function Card() {
     const [searchValue, setSearchValue] = React.useState("");
     const [nationality,setNationality]=React.useState("")
     const [cards,setCards]=React.useState([])
+    const [errorMessage, setErrorMessage] = useState(null);
     
     const handleClick=(e)=>{
         e.preventDefault()
@@ -45,10 +46,17 @@ export default function Card() {
                 return value;
             }
         })
-        .then(data => (
-            console.log(data),
-            setCards(data)
-            ))
+        .then(data => {
+            console.log(data)
+            if (data.length > 0) {
+                setCards(data)
+                setErrorMessage(null);
+            }
+            else {
+                console.log("No data found");
+                setErrorMessage("No data found");
+            }
+        })
         .catch(error => console.error(error));
     }
     
@@ -100,11 +108,12 @@ export default function Card() {
                     helperText="Some important text"
                 /> */}
                 <Button variant="contained" onClick={(e) => search(e)}>Search</Button>
+                {errorMessage && <p>{errorMessage}</p>}
             </Box>
         </Paper>
-        <h1>Students</h1>
+        <h1>Cards</h1>
         <Paper elevation={3} style={PaperStyle}>
-
+                
                 {cards.map(card=>(
                     <Paper elevation={6} style={{margin:"10px", padding:"15px", textAlign:"left"}} key={card.id}>
                         ID: {card.id} <br/>
