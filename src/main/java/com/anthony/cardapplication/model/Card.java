@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 
 import java.io.Serializable;
 
@@ -27,6 +28,7 @@ public class Card implements Serializable {
     @Column(nullable = false)
     private String nationality;
 
+    @Lob
     @Column(nullable = false)
     private String url;
 

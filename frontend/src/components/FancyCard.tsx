@@ -15,7 +15,7 @@ import { US } from 'country-flag-icons/react/1x1';
 
 interface FancyCardProps {
     name: string;
-    description: string;
+    manufacturer: string;
     id: string;
     nationality: string;
     imageURL: string;
@@ -23,7 +23,7 @@ interface FancyCardProps {
   }
   
 
-  const FancyCard: React.FC<FancyCardProps> = ({ name, id, description, nationality, club, imageURL  }) => {
+  const FancyCard: React.FC<FancyCardProps> = ({ name, id, manufacturer, nationality, club, imageURL  }) => {
     const countryCode = getCountryCode(nationality);
     return (
         <CardContainer className="inter-var">
@@ -39,7 +39,7 @@ interface FancyCardProps {
         translateZ="60"
         className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
         >
-        {nationality} {getUnicodeFlagIcon(getCountryCode(nationality))}<br/>
+        {nationality ?? ''} {getUnicodeFlagIcon(getCountryCode(nationality ?? ''))}<br/>
         {club}
         </CardItem>
         <CardItem
@@ -60,11 +60,10 @@ interface FancyCardProps {
           <CardItem
             translateZ={20}
             translateX={-40}
-            as="button"
-            className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
-            
+            as="p"
+            className="px-4 py-2 rounded-xl text-xs font-normal dark:text-neutral-300"
           >
-            <span style={{ color: 'black' }}>{description}</span>
+            {manufacturer}
           </CardItem>
 
         </div>

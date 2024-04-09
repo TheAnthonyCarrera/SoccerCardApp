@@ -196,7 +196,7 @@ const getCountryCode = (countryName: string) => {
         'Zimbabwe': 'ZW',
     };
 
-    return countryCodes[countryName];
+    return countryCodes[countryName] ?? 'NULL';
 };
 
 export default getCountryCode;

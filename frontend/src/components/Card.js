@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import FancyCard from './FancyCard';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container, Paper,  Button } from '@mui/material';
@@ -115,12 +116,14 @@ export default function Card() {
         <Paper elevation={3} style={PaperStyle}>
                 
                 {cards.map(card=>(
-                    <Paper elevation={6} style={{margin:"10px", padding:"15px", textAlign:"left"}} key={card.id}>
-                        ID: {card.id} <br/>
-                        Name: {card.first_name} {card.last_name} <br/>
-                        Club: {card.club} <br/>
-                        Nationality: {card.nationality} <br/>
-                    </Paper>
+                    <FancyCard 
+                    id={card.id} 
+                    name={card.first_name + " " + card.last_name}
+                    description={card.description}
+                    nationality={card.nationality}
+                    imageURL={card.url}
+                    club={card.club}
+                    />
                 ))}
 
         </Paper>
