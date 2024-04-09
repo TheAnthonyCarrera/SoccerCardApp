@@ -92,7 +92,7 @@ export default function Card() {
                 </Button>
 
                 <h2>Search</h2>
-                <TextField id="searchField" label="player name" type="search" value={searchValue} onChange={e => setSearchValue(e.target.value)} />
+                <TextField id="searchField" label="Player Name" type="search" value={searchValue} onChange={e => setSearchValue(e.target.value)} />
                 {/* <TextField
                     id="outlined-helperText"
                     label="Helper text"

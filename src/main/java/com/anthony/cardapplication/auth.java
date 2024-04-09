@@ -6,11 +6,11 @@ import java.util.regex.Pattern;
 
 public class auth {
 
-    private static String path = "C:\\Users\\moham\\OneDrive\\Documents\\GitHub\\SoccerCardApp\\auth.txt";
+
 
     public static String path() {
         try{
-            BufferedReader reader = new BufferedReader(new FileReader(path));
+            BufferedReader reader = new BufferedReader(new FileReader("auth.txt"));
             reader.readLine();
             reader.readLine();
             return reader.readLine();
@@ -23,7 +23,7 @@ public class auth {
 
     public static String password() {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(path));
+            BufferedReader reader = new BufferedReader(new FileReader("auth.txt"));
             reader.readLine(); // skip the username
             return reader.readLine();
         } catch (FileNotFoundException e) {
@@ -35,7 +35,7 @@ public class auth {
 
     public static String username() {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(path));
+            BufferedReader reader = new BufferedReader(new FileReader("auth.txt"));
             return reader.readLine();
         } catch (FileNotFoundException e) {
             return "file not found";
