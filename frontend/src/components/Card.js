@@ -3,6 +3,7 @@ import FancyCard from './FancyCard';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container, Paper,  Button } from '@mui/material';
+//import FancySparkles from './FancySparkles';
 
 export default function Card() {
  
@@ -127,12 +128,10 @@ export default function Card() {
                 /> */}
                 <Button variant="contained" onClick={(e) => search(e)}>Search</Button>
                 {errorMessage && <p>{errorMessage}</p>}
-            </Box>
-        </Paper>
-        <h1>Cards</h1>
-        <Paper elevation={3} style={PaperStyle}>
-                
-                {cards.map(card=>(
+            </Box><br/>
+            
+            <h1>Cards</h1>
+            {cards.map(card=>(
                     <FancyCard 
                     id={card.id} 
                     name={card.first_name + " " + card.last_name}
@@ -142,7 +141,6 @@ export default function Card() {
                     club={card.club}
                     />
                 ))}
-
         </Paper>
     </Container>
 
