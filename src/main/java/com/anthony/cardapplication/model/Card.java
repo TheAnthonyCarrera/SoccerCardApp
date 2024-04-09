@@ -27,8 +27,10 @@ public class Card implements Serializable {
     @Column(nullable = false)
     private String nationality;
 
-    public Card() {
-    }
+    @Column(nullable = false)
+    private String url;
+
+    public Card() {}
 
     public int getId() {
         return Id;
@@ -37,6 +39,10 @@ public class Card implements Serializable {
     public void setId(int id) {
         this.Id = id;
     }
+
+    public void setUrl(String url) { this.url = url; }
+
+    public String getUrl() { return url; }
 
     public String getFirst_name() {
         return first_name;
