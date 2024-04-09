@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container, Paper,  Button } from '@mui/material';
@@ -7,13 +7,11 @@ export default function Card() {
  
     const PaperStyle={padding:"50px 20px", width:600,margin:"20px auto"}
     const [first_name,setFirstName]=React.useState("")
-    
     const [last_name,setLastName]=React.useState("")
-
     const [club,setClub]=React.useState("")
     const [searchValue, setSearchValue] = React.useState("");
-
     const [nationality,setNationality]=React.useState("")
+    const [cards,setCards]=React.useState([])
     
     const handleClick=(e)=>{
         e.preventDefault()
@@ -28,26 +26,30 @@ export default function Card() {
         })
     }
 
-    function search(e) {
-        e.preventDefault();
-        let fnln = searchValue.split(" ");
+    function search() {
+
+        const fnln = searchValue.split(" ");
+
         fetch("http://localhost:8081/card/search?first_name=" + fnln[0] + "&last_name=" + fnln[1] ,{
             method:"GET",
             headers:{"Content-Type":"application/json"}
         })
         .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            else {
+            if (!response.ok) {
                 console.log(response.status);
                 throw new Error('Something went wrong');
             }
+            else {
+                let value = response.json();
+                console.log(value);
+                return value;
+            }
         })
-        .then(data => {
-            console.log("---", data);
-        });
-        console.log("benchod ", fnln[0], fnln[1])
+        .then(data => (
+            console.log(data),
+            setCards(data)
+            ))
+        .catch(error => console.error(error));
     }
     
     return (
@@ -100,6 +102,20 @@ export default function Card() {
                 <Button variant="contained" onClick={(e) => search(e)}>Search</Button>
             </Box>
         </Paper>
+        <h1>Students</h1>
+        <Paper elevation={3} style={PaperStyle}>
+
+                {cards.map(card=>(
+                    <Paper elevation={6} style={{margin:"10px", padding:"15px", textAlign:"left"}} key={card.id}>
+                        ID: {card.id} <br/>
+                        Name: {card.first_name} {card.last_name} <br/>
+                        Club: {card.club} <br/>
+                        Nationality: {card.nationality} <br/>
+                    </Paper>
+                ))}
+
+        </Paper>
     </Container>
+
   );
 }
