@@ -58,6 +58,10 @@ public class Card implements Serializable {
     public Card() {
     }
 
+    public boolean isValid() {
+        return first_name != null && last_name != null && club != null && nationality != null && year != 0 && series != null && card_number != 0 && variant != null && manufacturer != null;
+    }
+
     public String getDescription() {
         return description;
     }
