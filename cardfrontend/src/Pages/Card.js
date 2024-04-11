@@ -23,6 +23,7 @@ export default function Card() {
         e.preventDefault()
         const card={first_name,last_name,club,nationality, year, series, card_number, rookie, variant, manufacturer, image_url, description}
         console.log(card)
+        console.log(rookie)
         fetch("http://localhost:8081/card/add",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
@@ -156,8 +157,8 @@ export default function Card() {
                 <Grid item xs={11}>
                     <Button
                     variant='contained'
-                    style={{ backgroundColor: rookie ? 'red' : 'green', height: '54px', width: '75%' }}
-                    onClick={() => {setRookie(!rookie); console.log(rookie)}}
+                    style={{ backgroundColor: rookie ? 'green' : 'red', height: '54px', width: '75%' }}
+                    onClick={() => setRookie(!rookie)}
                     >
                     Rookie
                     </Button>
