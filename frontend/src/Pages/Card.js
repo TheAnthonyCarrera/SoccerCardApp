@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import FancyCard from '../components/Texture/FancyCard';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container, Paper,  Button } from '@mui/material';
+import FancySparkles from '@/src/components/Texture/FancySparkles.tsx';
 
 export default function Card() {
  
@@ -13,25 +15,32 @@ export default function Card() {
     const [nationality,setNationality]=React.useState("")
     const [cards,setCards]=React.useState([])
     const [errorMessage, setErrorMessage] = useState(null);
+    const [manufacturer, setManufacturer] = useState("");
+    const [url, setUrl] = useState("");
     
     const handleClick=(e)=>{
         e.preventDefault()
-        const card={first_name,last_name,club,nationality}
+        const card={first_name,last_name,club,nationality, manufacturer, url}
         console.log(card)
         fetch("http://localhost:8081/card/add",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(card)
-        }).then(()=>{
-        console.log("New Card Added")
+        }).then(data=>{
+            if (data.ok) {
+                setErrorMessage(null);
+                setErrorMessage("Card added");
+            }
+            else {
+                console.log("failed to add card");
+                setErrorMessage("failed to add card");
+            }
         })
     }
 
     function search() {
 
-        const fnln = searchValue.split(" ");
-
-        fetch("http://localhost:8081/card/search?first_name=" + fnln[0] + "&last_name=" + fnln[1] ,{
+        fetch("http://localhost:8081/card/search?name=" + searchValue ,{
             method:"GET",
             headers:{"Content-Type":"application/json"}
         })
@@ -94,6 +103,16 @@ export default function Card() {
                     value={nationality}
                     onChange={(e)=>setNationality(e.target.value)}
                 />
+
+                <TextField id="manufacturer" label="Manufacturer" variant="outlined" fullWidth
+                    value={manufacturer}
+                    onChange={(e)=>setManufacturer(e.target.value)}
+                />
+
+                <TextField id="url" label="Image URL" variant="outlined" fullWidth
+                    value={url}
+                    onChange={(e)=>setUrl(e.target.value)}
+                />
                 
                 <Button variant="contained"onClick={handleClick}>
                     Submit
@@ -109,20 +128,19 @@ export default function Card() {
                 /> */}
                 <Button variant="contained" onClick={(e) => search(e)}>Search</Button>
                 {errorMessage && <p>{errorMessage}</p>}
-            </Box>
-        </Paper>
-        <h1>Cards</h1>
-        <Paper elevation={3} style={PaperStyle}>
-                
-                {cards.map(card=>(
-                    <Paper elevation={6} style={{margin:"10px", padding:"15px", textAlign:"left"}} key={card.id}>
-                        ID: {card.id} <br/>
-                        Name: {card.first_name} {card.last_name} <br/>
-                        Club: {card.club} <br/>
-                        Nationality: {card.nationality} <br/>
-                    </Paper>
+            </Box><br/>
+            
+            <h1>Cards</h1>
+            {cards.map(card=>(
+                    <FancyCard 
+                    id={card.id} 
+                    name={card.first_name + " " + card.last_name}
+                    manufacturer={card.manufacturer}
+                    nationality={card.nationality}
+                    imageURL={card.url}
+                    club={card.club}
+                    />
                 ))}
-
         </Paper>
     </Container>
 

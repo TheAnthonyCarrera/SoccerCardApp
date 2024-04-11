@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { SparklesCore } from "./ui/sparkles";
+import { SparklesCore } from "./sparkles";
 
 interface FancySparklesProps {
     type: string;
