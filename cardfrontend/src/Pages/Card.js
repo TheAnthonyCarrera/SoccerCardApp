@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import { Container, Paper,  Button } from '@mui/material';
+import { FormControl, Container, Paper, TextField, Button, Grid, Select, MenuItem, Box, InputLabel} from '@mui/material';
 
 export default function Card() {
  
@@ -9,55 +7,37 @@ export default function Card() {
     const [first_name,setFirstName]=React.useState("")
     const [last_name,setLastName]=React.useState("")
     const [club,setClub]=React.useState("")
-    const [searchValue, setSearchValue] = React.useState("");
     const [nationality,setNationality]=React.useState("")
-    const [cards,setCards]=React.useState([])
+    const [year,setYear]=React.useState("")
+    const [series,setSeries]=React.useState("")
+    const [card_number,setCardNumber]=React.useState("")
+    const [rookie, setRookie] = useState(false);
+    const [variant,setVariant]=React.useState("")
+    const [manufacturer,setManufacturer]=React.useState("")
+    const [image_url,setImageURL]=React.useState("")
+    const [description,setDescription]=React.useState("")
+
     const [errorMessage, setErrorMessage] = useState(null);
     
     const handleClick=(e)=>{
         e.preventDefault()
-        const card={first_name,last_name,club,nationality}
+        const card={first_name,last_name,club,nationality, year, series, card_number, rookie, variant, manufacturer, image_url, description}
         console.log(card)
         fetch("http://localhost:8081/card/add",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(card)
-        }).then(()=>{
-        console.log("New Card Added")
-        })
-    }
-
-    function search() {
-
-        const fnln = searchValue.split(" ");
-
-        fetch("http://localhost:8081/card/search?first_name=" + fnln[0] + "&last_name=" + fnln[1] ,{
-            method:"GET",
-            headers:{"Content-Type":"application/json"}
-        })
-        .then(response => {
-            if (!response.ok) {
-                console.log(response.status);
-                throw new Error('Something went wrong');
-            }
-            else {
-                let value = response.json();
-                console.log(value);
-                return value;
+        }).then((data)=>{
+            if (data.ok) {
+                console.log("New Card Added")
+                setErrorMessage(null)
+                setErrorMessage("Successfully added Card")
+            } else {
+                console.log("Error adding card")
+                console.log(data.status)
+                setErrorMessage("Error adding card")
             }
         })
-        .then(data => {
-            console.log(data)
-            if (data.length > 0) {
-                setCards(data)
-                setErrorMessage(null);
-            }
-            else {
-                console.log("No data found");
-                setErrorMessage("No data found");
-            }
-        })
-        .catch(error => console.error(error));
     }
     
     return (
@@ -75,54 +55,120 @@ export default function Card() {
                 autoComplete="off"
             >
                 
-                <TextField id="first_name" label="First Name" variant="outlined" fullWidth
+            <Grid container spacing={0.5}>
+                <Grid item xs={5.9}>
+                <TextField
+                    label="First Name"
+                    variant="outlined"
                     value={first_name}
-                    onChange={(e)=>setFirstName(e.target.value)}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    fullWidth
                 />
-                
-                <TextField id="last_name" label="Last Name" variant="outlined" fullWidth
+                </Grid>
+                <Grid item xs={5.9}>
+                <TextField
+                    label="Last Name"
+                    variant="outlined"
                     value={last_name}
-                    onChange={(e)=>setLastName(e.target.value)}
+                    onChange={(e) => setLastName(e.target.value)}
+                    fullWidth
                 />
-
+                </Grid>
+                <Grid item xs={5.9}>
                 <TextField id="club" label="Club" variant="outlined" fullWidth
                     value={club}
                     onChange={(e)=>setClub(e.target.value)}
                 />
-
+                </Grid>
+                <Grid item xs={5.9}>
                 <TextField id="nationality" label="Nationality" variant="outlined" fullWidth
                     value={nationality}
                     onChange={(e)=>setNationality(e.target.value)}
                 />
-                
-                <Button variant="contained"onClick={handleClick}>
-                    Submit
-                </Button>
+                </Grid>
+                <Grid item xs={5.9}>
+                    <FormControl fullWidth variant="outlined">
+                    <InputLabel id="year-label">Year</InputLabel>
+                    <Select
+                    id="year"
+                    label="Year"
+                    variant="outlined"
+                    value={year}
+                    onChange={(e) => setYear(e.target.value)}
+                    fullWidth
+                    inputProps={{ style: { color: 'black', height: '56px', padding: '10px 0', paddingBottom: '10px' } }}
+                    >
+                    {Array.from({ length: 2025 - 1960 }, (_, i) => 1960 + i).map((year) => (
+                    <MenuItem key={year} value={year}>
+                    {year}
+                    </MenuItem>
+                    ))}
+                    </Select>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={5.9}>
+                <TextField id="series" label="Series" variant="outlined" fullWidth
+                    value={series}
+                    onChange={(e)=>setSeries(e.target.value)}
+                />
+                </Grid>
+                <Grid item xs={5.9}>
+                <TextField id="card_number" label="Card number" variant="outlined" fullWidth
+                    value={card_number}
+                    onChange={(e)=>setCardNumber(e.target.value)}
+                />
+                </Grid>
+                <Grid item xs={5.9}>
+                <TextField id="variant" label="Variant" variant="outlined" fullWidth
+                    value={variant}
+                    onChange={(e)=>setVariant(e.target.value)}
+                />
+                </Grid>
+            </Grid>
+            <Grid container spacing={2}>
+                <Grid item xs={11}>
+                <TextField id="manufacturer" label="Manufacturer" variant="outlined" width="100%"
+                    value={manufacturer}
+                    onChange={(e)=>setManufacturer(e.target.value)}
+                    style={{ width: '50%' }}
+                />
+                </Grid>
+            </Grid>
+            <br/>
+            <h2 color='grey'>Optional</h2>
 
-                <h2>Search</h2>
-                <TextField id="searchField" label="Player Name" type="search" value={searchValue} onChange={e => setSearchValue(e.target.value)} />
-                {/* <TextField
-                    id="outlined-helperText"
-                    label="Helper text"
-                    defaultValue="Default Value"
-                    helperText="Some important text"
-                /> */}
-                <Button variant="contained" onClick={(e) => search(e)}>Search</Button>
-                {errorMessage && <p>{errorMessage}</p>}
+            <Grid container spacing={0.5}>
+                <Grid item xs={5.9}>
+                <TextField id="image_url" label="Image URL" variant="outlined" fullWidth
+                    value={image_url}
+                    onChange={(e)=>setImageURL(e.target.value)}
+                />
+                </Grid>
+                <Grid item xs={5.9}>
+                <TextField id="description" label="Description" variant="outlined" fullWidth
+                    value={description}
+                    onChange={(e)=>setDescription(e.target.value)}
+                />
+                </Grid>
+            </Grid>
+
+            <Grid container spacing={2}>
+                <Grid item xs={11}>
+                    <Button
+                    variant='contained'
+                    style={{ backgroundColor: rookie ? 'red' : 'green', height: '54px', width: '75%' }}
+                    onClick={() => {setRookie(!rookie); console.log(rookie)}}
+                    >
+                    Rookie
+                    </Button>
+                </Grid>
+            </Grid>
+            
+            <Button variant="contained"onClick={handleClick}>
+                Submit
+            </Button>
+            {errorMessage && <p>{errorMessage}</p>}
             </Box>
-        </Paper>
-        <h1>Cards</h1>
-        <Paper elevation={3} style={PaperStyle}>
-                
-                {cards.map(card=>(
-                    <Paper elevation={6} style={{margin:"10px", padding:"15px", textAlign:"left"}} key={card.id}>
-                        ID: {card.id} <br/>
-                        Name: {card.first_name} {card.last_name} <br/>
-                        Club: {card.club} <br/>
-                        Nationality: {card.nationality} <br/>
-                    </Paper>
-                ))}
-
         </Paper>
     </Container>
 

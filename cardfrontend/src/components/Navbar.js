@@ -10,6 +10,7 @@ export default function Navbar() {
       <ul>
         <CustomLink to="/Card">Add Card</CustomLink>
         <CustomLink to="/about">View card</CustomLink>
+        <CustomLink to="/Search">Search</CustomLink>
       </ul>
     </nav>
   )
