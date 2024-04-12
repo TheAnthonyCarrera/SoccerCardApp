@@ -7,7 +7,8 @@ import { Container, Paper,  Button } from '@mui/material';
 export default function Card() {
     
     // values
-    const PaperStyle={padding:"50px 20px", width:600,margin:"20px auto"}
+    const PaperStyle = { padding: "50px 20px", width: 600, margin: "20px auto", backgroundColor: '#616161' }; // <-- Added backgroundColor property
+    //const PaperStyle={padding:"50px 20px", width:600,margin:"20px auto"}
     const [searchValue, setSearchValue] = React.useState("");
     const [errorMessage, setErrorMessage] = useState(null);
     const [cards,setCards]=React.useState([])
@@ -57,13 +58,13 @@ export default function Card() {
                     defaultValue="Default Value"
                     helperText="Some important text"
                 /> */}
-                <Button variant="contained" onClick={(e) => search(e)}>Search</Button>
+                <Button variant="contained" onClick={(e) => search(e)} style={{left : '10px' , top : '7.5px' , backgroundColor : 'black'}}>Search</Button>
                 {errorMessage && <p>{errorMessage}</p>}
 
                 <h1>Cards</h1>
                 
                 {cards.map(card=>(
-                    <Paper elevation={6} style={{margin:"10px", padding:"15px", textAlign:"left"}} key={card.id}>
+                    <Paper elevation={6} style={{margin:"10px", padding:"15px", textAlign:"left", PaperStyle}} key={card.id}>
                         ID: {card.id} <br/>
                         Name: {card.first_name} {card.last_name} <br/>
                         Club: {card.club} <br/>
