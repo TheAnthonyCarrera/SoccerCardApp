@@ -1,22 +1,13 @@
 import './App.css';
-import Navbar from './components/Navbar';
-import Card from './Pages/Card';
-import About from './Pages/View';
-import { Route, Routes } from "react-router-dom"
-
-
+import Appbar from './components/Appbar';
+import Card from './components/Card';
 function App() {
   return (
-    <>
-      <Navbar />
-      <div className="container">
-        <Routes>
-          <Route path="/Card" element={<Card />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-      </div>
-    </>
-  )
+    <div className="App">
+      <Appbar/>
+      <Card/>
+    </div>
+  );
 }
 
 export default App;
